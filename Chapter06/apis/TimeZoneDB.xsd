@@ -1,0 +1,20 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+      <xs:element name="result" >
+        <xs:complexType>
+        <xs:sequence>
+          <xs:element name="status" type="xs:string"/>
+          <xs:element name="message" type="xs:string" />
+          <xs:element name="countryCode" type="xs:string"/>
+          <xs:element name="zoneName" type="xs:string"  />
+          <xs:element name="abbreviation" type="xs:string"  />
+          <xs:element name="gmtOffset" type="xs:string"  />
+          <xs:element name="dst" type="xs:string"  />
+          <xs:element name="timestamp" type="xs:string"  />
+        </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+
+    </xs:schema>

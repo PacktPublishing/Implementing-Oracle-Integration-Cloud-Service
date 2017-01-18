@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="401d67f2-d459-4867-a417-94792bd94c4a" activeEnvironment="Default" name="FlightInfoUpdate-PubSub_Ch3" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="8cc9e528-23f7-41b6-b1a5-85eacb9cd526" wsaVersion="NONE" name="FlightInfoUpdateType-binding" type="wsdl" bindingName="{http://oracle-ics.book/soap/IntegratedSourceFlightSitReps}FlightInfoUpdateType-binding" soapVersion="1_1" anonymous="optional" definition="https://icssandbox-a167512.integration.us2.oraclecloud.com/integration/flowsvc/soap/TEST_SOAP_CH3/v01/?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://icssandbox-a167512.integration.us2.oraclecloud.com/integration/flowsvc/soap/TEST_SOAP_CH3/v01/?wsdl"><con:part><con:url>https://icssandbox-a167512.integration.us2.oraclecloud.com/integration/flowsvc/soap/TEST_SOAP_CH3/v01/?wsdl</con:url><con:content><![CDATA[<WL5G3N2:definitions targetNamespace="http://oracle-ics.book/soap/IntegratedSourceFlightSitReps" xmlns:WL5G3N0="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:WL5G3N1="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:WL5G3N2="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N3="http://oracle-ics.book/soap/IntegratedSourceFlightSitReps" xmlns:WL5G3N4="http://schemas.xmlsoap.org/wsdl/soap/">
+  <WL5G3N0:Policy WL5G3N1:Id="wss_username_token_over_ssl_service_policy">
+    <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+      <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+        <sp:AlgorithmSuite>
+          <wsp:Policy>
+            <sp:Basic128/>
+          </wsp:Policy>
+        </sp:AlgorithmSuite>
+        <sp:TransportToken>
+          <wsp:Policy>
+            <sp:HttpsToken RequireClientCertificate="false">
+              <wsp:Policy/>
+            </sp:HttpsToken>
+          </wsp:Policy>
+        </sp:TransportToken>
+        <sp:Layout>
+          <wsp:Policy>
+            <sp:Lax/>
+          </wsp:Policy>
+        </sp:Layout>
+        <sp:IncludeTimestamp/>
+      </wsp:Policy>
+    </sp:TransportBinding>
+    <sp:SupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+      <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+        <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+          <wsp:Policy>
+            <sp:WssUsernameToken10/>
+          </wsp:Policy>
+        </sp:UsernameToken>
+      </wsp:Policy>
+    </sp:SupportingTokens>
+  </WL5G3N0:Policy>
+  <WL5G3N2:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://oracle-ics.book/soap/IntegratedSourceFlightSitReps" xmlns:FS="http://oracle-ics.book/soap/IntegratedSourceFlightSitReps" xmlns:WL5G3N0="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N1="http://oracle-ics.book/soap/IntegratedSourceFlightSitReps" xmlns:WL5G3N2="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:WL5G3N3="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="FlightSitRepType">
+        <xs:sequence>
+          <xs:element maxOccurs="1" minOccurs="1" name="ID" type="xs:string"/>
+          <xs:element maxOccurs="1" minOccurs="1" name="ident" type="xs:string"/>
+          <xs:element maxOccurs="1" minOccurs="1" name="prefix" type="xs:string"/>
+          <xs:element maxOccurs="1" minOccurs="1" name="type" type="xs:string"/>
+          <xs:element maxOccurs="1" minOccurs="1" name="suffix" type="xs:string"/>
+          <xs:element maxOccurs="1" minOccurs="1" name="origin" type="xs:string"/>
+          <xs:element maxOccurs="1" minOccurs="1" name="destination" type="xs:string"/>
+          <xs:element maxOccurs="1" minOccurs="1" name="timeout" type="xs:string"/>
+          <xs:element maxOccurs="1" minOccurs="1" name="timestamp" type="xs:int"/>
+          <xs:element maxOccurs="1" minOccurs="1" name="longitude" type="xs:float"/>
+          <xs:element maxOccurs="1" minOccurs="1" name="latitude" type="xs:float"/>
+          <xs:element maxOccurs="1" minOccurs="1" name="updateType" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <!--details of the flight being reported on-->
+      <xs:element name="FlightProgress" type="FS:FlightSitRepType"/>
+    </xs:schema>
+  </WL5G3N2:types>
+  <WL5G3N2:message name="FlightInfoUpdateMsg">
+    <WL5G3N2:part name="parameters" element="WL5G3N3:FlightProgress"/>
+  </WL5G3N2:message>
+  <WL5G3N2:portType name="FlightInfoUpdateType">
+    <WL5G3N2:operation name="FlightStatusUpdate">
+      <WL5G3N2:input message="WL5G3N3:FlightInfoUpdateMsg"/>
+    </WL5G3N2:operation>
+  </WL5G3N2:portType>
+  <WL5G3N2:binding name="FlightInfoUpdateType-binding" type="WL5G3N3:FlightInfoUpdateType">
+    <WL5G3N0:Policy>
+      <WL5G3N0:PolicyReference URI="#wss_username_token_over_ssl_service_policy"/>
+    </WL5G3N0:Policy>
+    <WL5G3N4:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <WL5G3N2:operation name="FlightStatusUpdate">
+      <WL5G3N4:operation soapAction="http://oracle-ics.book/soap/IntegratedSourceFlightSitReps/FlightStatusUpdate"/>
+      <WL5G3N2:input>
+        <WL5G3N4:body use="literal"/>
+      </WL5G3N2:input>
+    </WL5G3N2:operation>
+  </WL5G3N2:binding>
+  <WL5G3N2:service name="FlightInfoUpdateType-bindingQSService">
+    <WL5G3N2:documentation>OSB Service</WL5G3N2:documentation>
+    <WL5G3N2:port name="FlightInfoUpdateType-bindingQSPort" binding="WL5G3N3:FlightInfoUpdateType-binding">
+      <WL5G3N4:address location="https://icssandbox-a167512.integration.us2.oraclecloud.com:443/integration/flowsvc/soap/TEST_SOAP_CH3/v01/"/>
+    </WL5G3N2:port>
+  </WL5G3N2:service>
+</WL5G3N2:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://icssandbox-a167512.integration.us2.oraclecloud.com:443/integration/flowsvc/soap/TEST_SOAP_CH3/v01/</con:endpoint></con:endpoints><con:operation id="503b5e9b-84d0-4d68-85c2-e9dbb8d71589" isOneWay="false" action="http://oracle-ics.book/soap/IntegratedSourceFlightSitReps/FlightStatusUpdate" name="FlightStatusUpdate" bindingOperationName="FlightStatusUpdate" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="3ea01563-0e9f-470e-8f39-15b573bac996" name="SOAP1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://icssandbox-a167512.integration.us2.oraclecloud.com/integration/flowsvc/soap/PUBLISHFLIGHTSTA_CH3/v01/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:int="http://oracle-ics.book/soap/IntegratedSourceFlightSitReps" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">\r
+   <soapenv:Header>\r
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">\r
+         <wsu:Timestamp wsu:Id="TS-E2CFB785E629B6B7D3146170299033520">\r
+            <wsu:Created>2016-04-26T20:36:30.335Z</wsu:Created>\r
+            <wsu:Expires>2016-04-26T20:46:30.335Z</wsu:Expires>\r
+         </wsu:Timestamp>\r
+         <wsse:UsernameToken wsu:Id="UsernameToken-E2CFB785E629B6B7D3146170298528719">\r
+            <wsse:Username>robert.van.molken@amis.nl</wsse:Username>\r
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">1CSb00k#!</wsse:Password>\r
+            <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">XTR6uqbvVM+sfhGhIESPow==</wsse:Nonce>\r
+            <wsu:Created>2016-04-26T20:36:25.287Z</wsu:Created>\r
+         </wsse:UsernameToken>\r
+      </wsse:Security>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <int:FlightProgress>\r
+         <int:ID>46</int:ID>\r
+         <int:ident>46</int:ident>\r
+         <int:prefix>1</int:prefix>\r
+         <int:type>1</int:type>\r
+         <int:suffix>1</int:suffix>\r
+         <int:origin>LHR</int:origin>\r
+         <int:destination>SFO</int:destination>\r
+         <int:timeout>12:15</int:timeout>\r
+         <int:timestamp>1</int:timestamp>\r
+         <int:longitude>0</int:longitude>\r
+         <int:latitude>0</int:latitude>\r
+         <int:updateType>1</int:updateType>\r
+      </int:FlightProgress>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>robert.van.molken@amis.nl</con:username><con:password>1CSb00k#!</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oracle-ics.book/soap/IntegratedSourceFlightSitReps/FlightStatusUpdate"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="4e09fa52-3a01-4bdf-8160-ab18d91684cd" name="FlightInfoTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="c73d7f00-b4de-4d78-8786-8dad41ec2702" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="FlightUpdate" searchProperties="true"><con:settings/><con:testStep type="manualTestStep" name="Read First" id="b7321a7e-c7ea-4988-a16a-a45b16f62799" disabled="true"><con:description>Before you run these test change the values of:
+
+- Endpoint to service:
+  You can edit this through one of the enroute or arrival test steps.
+  
+- Username of instance account:
+  You can change the value by opening the Properties teststep
+  
+- Password of instance account:
+  You can change the value by opening the Properties teststep  
+  
+Keep other values empty, are entered by groovy test steps</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>A working testcase :)</con:expectedResult></con:config></con:testStep><con:testStep type="properties" name="Properties" id="9c9d71c5-122e-4dfd-b260-4b27d3d03245"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>Username</con:name><con:value>ics-username</con:value></con:property><con:property><con:name>Password</con:name><con:value>ics-password</con:value></con:property><con:property><con:name>Created</con:name><con:value/></con:property><con:property><con:name>Expires</con:name><con:value/></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Set Created and Expires" id="87bfb8c5-6f37-4c61-b22d-da3116c0ed0c"><con:settings/><con:config><script>Calendar created = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
+Calendar expires = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
+expires.add(Calendar.MINUTE, 10);
+testRunner.testCase.testSteps["Properties"].setPropertyValue( "Created", created.format("yyyy-MM-dd'T'HH:mm:ss'Z'"))
+testRunner.testCase.testSteps["Properties"].setPropertyValue( "Expires", expires.format("yyyy-MM-dd'T'HH:mm:ss'Z'"))</script></con:config></con:testStep><con:testStep type="request" id="6d04d328-deee-4d5e-841c-85c334ffe2d9" name="Call ICS Endpoint"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FlightInfoUpdateType-binding</con:interface><con:operation>FlightStatusUpdate</con:operation><con:request name="Call ICS Endpoint" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="fa4454d9-e286-43b7-a980-b4918c88740e"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://xxx-yyy.integration.zzz.oraclecloud.com/integration/flowsvc/soap/PUBLISHFLIGHTSTA_CH3/v01/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:int="http://oracle-ics.book/soap/IntegratedSourceFlightSitReps" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">\r
+   <soapenv:Header>\r
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">\r
+         <wsu:Timestamp wsu:Id="TS-E2CFB785E629B6B7D314614262567192">\r
+            <wsu:Created>${Properties#Created}</wsu:Created>
+            <wsu:Expires>${Properties#Expires}</wsu:Expires>
+         </wsu:Timestamp>\r
+         <wsse:UsernameToken wsu:Id="UsernameToken-E2CFB785E629B6B7D314614262401171">\r
+            <wsse:Username>${Properties#Username}</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">${Properties#Password}</wsse:Password>
+            <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">8FfDmN1+hc/9W3JtGCKnpQ==</wsse:Nonce>\r
+            <wsu:Created>${Properties#Created}</wsu:Created>
+         </wsse:UsernameToken>\r
+      </wsse:Security>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <int:FlightProgress>\r
+         <int:ID>1</int:ID>\r
+         <int:ident>2</int:ident>\r
+         <int:prefix>1</int:prefix>\r
+         <int:type>1</int:type>\r
+         <int:suffix>1</int:suffix>\r
+         <int:origin>LHR</int:origin>\r
+         <int:destination>SFO</int:destination>\r
+         <int:timeout>12:15</int:timeout>\r
+         <int:timestamp>1</int:timestamp>\r
+         <int:longitude>0</int:longitude>\r
+         <int:latitude>0</int:latitude>\r
+         <int:updateType>1</int:updateType>\r
+      </int:FlightProgress>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>robert.van.molken@amis.nl</con:username><con:password>1CSb00k#!</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oracle-ics.book/soap/IntegratedSourceFlightSitReps/FlightStatusUpdate"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>

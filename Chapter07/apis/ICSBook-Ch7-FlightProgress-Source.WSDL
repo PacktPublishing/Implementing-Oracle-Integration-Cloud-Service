@@ -1,0 +1,78 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+   xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" 
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+   xmlns:FS="http://oracle-integration.cloud/soap/IntegratedSourceFlightSitReps/"
+   targetNamespace="http://oracle-integration.cloud/soap/IntegratedSourceFlightSitReps/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://oracle-integration.cloud/soap/IntegratedSourceFlightSitReps/">
+               
+      <xs:complexType name="FlightSitRepType">
+        <xs:sequence>
+          <xs:element name="ID" type="xs:string"/>
+          <xs:element name="ident" type="xs:string"/>
+          <xs:element name="prefix" type="xs:string"/>
+          <xs:element name="type" type="xs:string"/>
+          <xs:element name="ICAORef" type="xs:string"/>
+          <xs:element name="origin" type="xs:string"/>
+          <xs:element name="destination" type="xs:string"/>
+          <xs:element name="timeout" type="xs:string"/>
+          <xs:element name="timestamp" type="xs:int"/>          
+          <xs:element name="longitude" type="xs:float"/>
+          <xs:element name="latitude" type="xs:float"/>
+          <xs:element name="updateType" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      
+      
+      <xs:complexType name="FlightSitRepResponseType">
+        <xs:sequence>
+          <xs:element name="ID" type="xs:string"/>
+          <xs:element name="ident" type="xs:string"/>          
+          <xs:element name="updateType" type="xs:string"/>
+          <xs:element name="notified" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>      
+      
+      <!-- details of the flight being reported on -->
+      <xs:element name="FlightProgress" type="FS:FlightSitRepType"/>
+      <xs:element name="FlightProgressResponse" type="FS:FlightSitRepResponseType"/>
+      
+    </xs:schema>
+  </wsdl:types>
+  <!-- WSDL Message Definitions - Start -->
+  <wsdl:message name="FlightInfoUpdateMsg">
+    <wsdl:part name="parameters" element="FS:FlightProgress"/>
+  </wsdl:message>
+    <wsdl:message name="FlightInfoUpdateResponseMsg">
+      <wsdl:part name="parameters" element="FS:FlightProgressResponse"/>
+  </wsdl:message>
+  <!-- WSDL Message Definitions - End -->
+  <wsdl:portType name="FlightInfoUpdateType">
+    <wsdl:operation name="FlightStatusUpdate">
+      <wsdl:input message="FS:FlightInfoUpdateMsg"/>
+      <wsdl:output message="FS:FlightInfoUpdateResponseMsg"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FlightSitRepsWSDL" type="FS:FlightInfoUpdateType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="FlightStatusUpdate">
+      <soap:operation soapAction="FlightStatusUpdate" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>      
+    </wsdl:operation>
+  </wsdl:binding>
+  <!-- WSDL Service Definition -->
+  <wsdl:service name="FlightSitReps">
+    <wsdl:documentation>FlightSitReps Web Services - this represents the API presented by the SOAP Service we want to integrate downstream</wsdl:documentation>
+    <wsdl:port name="FlightSitRepsSoap" binding="FS:FlightSitRepsWSDL">
+      <wsdl:documentation>As ICS should provide the URI for the service we leave the location attribute out</wsdl:documentation>
+    </wsdl:port>
+  </wsdl:service> </wsdl:definitions>

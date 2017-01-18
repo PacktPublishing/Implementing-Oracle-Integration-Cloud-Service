@@ -1,0 +1,11 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns0="http://oracle-integration.cloud/soap/FilteredTargetAdvancedFlightUpdates/">
+   <soapenv:Header/>
+   <soapenv:Body>
+<ns0:FilteredFlightProgressResponse>
+   <ns0:ID>hardwired Id</ns0:ID>
+   <ns0:ident>hardwired ident</ns0:ident>
+   <ns0:updateType>updateType38</ns0:updateType>
+   <ns0:notified>success</ns0:notified>
+</ns0:FilteredFlightProgressResponse>
+   </soapenv:Body>
+   </soapenv:Envelope>

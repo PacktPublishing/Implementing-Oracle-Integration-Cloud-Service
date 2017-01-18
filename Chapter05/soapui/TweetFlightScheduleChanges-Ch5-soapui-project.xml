@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="8d8db393-8351-4b06-8dfb-f258cbb1056b" activeEnvironment="Default" name="TweetFlightScheduleChanges_Ch5" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="497b5ca2-9d4d-49a0-8151-49a9a9164cc7" wsaVersion="NONE" name="FlightSchedulesPortType_ScheduleUpdate_REQUEST-binding" type="wsdl" bindingName="{http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/}FlightSchedulesPortType_ScheduleUpdate_REQUEST-binding" soapVersion="1_1" anonymous="optional" definition="https://integrationtrial5550-deoracleem99369.integration.us2.oraclecloud.com/integration/flowsvc/soap/TWEETFLIGHTSCHED_CH5/v01/?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://integrationtrial5550-deoracleem99369.integration.us2.oraclecloud.com/integration/flowsvc/soap/TWEETFLIGHTSCHED_CH5/v01/?wsdl"><con:part><con:url>https://integrationtrial5550-deoracleem99369.integration.us2.oraclecloud.com/integration/flowsvc/soap/TWEETFLIGHTSCHED_CH5/v01/?wsdl</con:url><con:content><![CDATA[<WL5G3N2:definitions targetNamespace="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/" xmlns:WL5G3N0="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:WL5G3N1="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:WL5G3N2="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N3="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/" xmlns:WL5G3N4="http://schemas.xmlsoap.org/wsdl/soap/">
+  <WL5G3N0:Policy WL5G3N1:Id="wss_username_token_over_ssl_service_policy">
+    <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+      <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+        <sp:AlgorithmSuite>
+          <wsp:Policy>
+            <sp:Basic128/>
+          </wsp:Policy>
+        </sp:AlgorithmSuite>
+        <sp:TransportToken>
+          <wsp:Policy>
+            <sp:HttpsToken RequireClientCertificate="false">
+              <wsp:Policy/>
+            </sp:HttpsToken>
+          </wsp:Policy>
+        </sp:TransportToken>
+        <sp:Layout>
+          <wsp:Policy>
+            <sp:Lax/>
+          </wsp:Policy>
+        </sp:Layout>
+        <sp:IncludeTimestamp/>
+      </wsp:Policy>
+    </sp:TransportBinding>
+    <sp:SupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+      <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+        <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+          <wsp:Policy>
+            <sp:WssUsernameToken10/>
+          </wsp:Policy>
+        </sp:UsernameToken>
+      </wsp:Policy>
+    </sp:SupportingTokens>
+  </WL5G3N0:Policy>
+  <WL5G3N2:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/" xmlns:FS="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/" xmlns:WL5G3N0="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N1="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/" xmlns:WL5G3N2="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:WL5G3N3="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="ScheduleUpdate" type="FS:FlightScheduleType">
+        <xs:annotation>
+          <xs:documentation>Flight Schedule update notification</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ScheduleUpdateResult" type="FS:NotificationResultType">
+        <xs:annotation>
+          <xs:documentation>Callback when notification received successful</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MissingPersonReport" type="FS:MissingPersonType">
+        <xs:annotation>
+          <xs:documentation>Missing person notification</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MissingPersonResult" type="FS:NotificationResultType">
+        <xs:annotation>
+          <xs:documentation>Callback when notification received successful</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BusinessFault" type="FS:BusinessFaultType">
+        <xs:annotation>
+          <xs:documentation>Fault when back-end returns an exception</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ServiceHeader" type="FS:ServiceHeaderType">
+        <xs:annotation>
+          <xs:documentation>Header for service request and response</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:complexType name="FlightScheduleType">
+        <xs:sequence>
+          <xs:element name="faFlightID" type="xs:string"/>
+          <xs:element name="ident" type="xs:string"/>
+          <xs:element name="origin" type="xs:string"/>
+          <xs:element name="destination" type="xs:string"/>
+          <xs:element name="updateType" type="FS:updateType"/>
+          <xs:element name="departureTime" type="xs:dateTime"/>
+          <xs:element name="arrivalTime" type="xs:dateTime"/>
+          <xs:element name="duration" type="xs:duration"/>
+          <xs:element name="durationString" type="xs:string"/>
+          <xs:element minOccurs="0" name="longitude" type="xs:float"/>
+          <xs:element minOccurs="0" name="latitude" type="xs:float"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="MissingPersonType">
+        <xs:sequence>
+          <xs:element name="faFlightID" type="xs:string"/>
+          <xs:element name="ident" type="xs:string"/>
+          <xs:element name="origin" type="xs:string"/>
+          <xs:element name="destination" type="xs:string"/>
+          <xs:element name="missingPerson" type="FS:PersonType"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="NotificationResultType">
+        <xs:sequence>
+          <xs:element name="parentID" type="xs:string"/>
+          <xs:element name="processed" type="xs:boolean"/>
+          <xs:element name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="BusinessFaultType">
+        <xs:sequence>
+          <xs:element name="FaultDetails">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="code" type="xs:string"/>
+                <xs:element name="message" type="xs:string"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PersonType">
+        <xs:sequence>
+          <xs:element name="idNumber" type="xs:string"/>
+          <xs:element name="idType" type="FS:idType"/>
+          <xs:element name="title" type="FS:titleType"/>
+          <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+          <xs:element minOccurs="0" name="initials" type="xs:string"/>
+          <xs:element name="lastName" type="xs:string"/>
+          <xs:element name="luggageTag" type="FS:guidType"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ServiceHeaderType">
+        <xs:sequence>
+          <xs:element name="conversationId" type="FS:guidType"/>
+          <xs:element name="messageId" type="FS:messageIdType"/>
+          <xs:element minOccurs="0" name="refToMessageId" type="FS:messageIdType"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="idType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="passport"/>
+          <xs:enumeration value="EU-ID"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="guidType">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">The representation of a GUID, generally the id of an element.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\}"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="titleType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Mr"/>
+          <xs:enumeration value="Mrs"/>
+          <xs:enumeration value="Ms"/>
+          <xs:enumeration value="Mx"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="messageIdType">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[0-9A-F]{8}\.[0-9A-F]{8}@[a-zA-Z]+"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="updateType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="delayed"/>
+          <xs:enumeration value="early"/>
+          <xs:enumeration value="on time"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+  </WL5G3N2:types>
+  <WL5G3N2:message name="FlightScheduleUpdateMsg">
+    <WL5G3N2:part name="parameters" element="WL5G3N3:ScheduleUpdate"/>
+  </WL5G3N2:message>
+  <WL5G3N2:message name="FlightScheduleUpdateResultMsg">
+    <WL5G3N2:part name="parameters" element="WL5G3N3:ScheduleUpdateResult"/>
+  </WL5G3N2:message>
+  <WL5G3N2:message name="FlightScheduleFaultMsg">
+    <WL5G3N2:part name="parameters" element="WL5G3N3:BusinessFault"/>
+  </WL5G3N2:message>
+  <WL5G3N2:message name="ServiceHeaderMsg">
+    <WL5G3N2:part name="header" element="WL5G3N3:ServiceHeader"/>
+  </WL5G3N2:message>
+  <WL5G3N2:portType name="FlightSchedulesPortType_ScheduleUpdate_REQUEST">
+    <WL5G3N2:operation name="FlightScheduleUpdate">
+      <WL5G3N2:input message="WL5G3N3:FlightScheduleUpdateMsg"/>
+      <WL5G3N2:output message="WL5G3N3:FlightScheduleUpdateResultMsg"/>
+      <WL5G3N2:fault name="ScheduleUpdateFault" message="WL5G3N3:FlightScheduleFaultMsg"/>
+    </WL5G3N2:operation>
+  </WL5G3N2:portType>
+  <WL5G3N2:binding name="FlightSchedulesPortType_ScheduleUpdate_REQUEST-binding" type="WL5G3N3:FlightSchedulesPortType_ScheduleUpdate_REQUEST">
+    <WL5G3N0:Policy>
+      <WL5G3N0:PolicyReference URI="#wss_username_token_over_ssl_service_policy"/>
+    </WL5G3N0:Policy>
+    <WL5G3N4:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <WL5G3N2:operation name="FlightScheduleUpdate">
+      <WL5G3N4:operation soapAction="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/FlightScheduleUpdate"/>
+      <WL5G3N2:input>
+        <WL5G3N4:body use="literal"/>
+      </WL5G3N2:input>
+      <WL5G3N2:output>
+        <WL5G3N4:body use="literal"/>
+      </WL5G3N2:output>
+    </WL5G3N2:operation>
+  </WL5G3N2:binding>
+  <WL5G3N2:service name="FlightSchedulesPortType_ScheduleUpdate_REQUEST-bindingQSService">
+    <WL5G3N2:documentation>OSB Service</WL5G3N2:documentation>
+    <WL5G3N2:port name="FlightSchedulesPortType_ScheduleUpdate_REQUEST-bindingQSPort" binding="WL5G3N3:FlightSchedulesPortType_ScheduleUpdate_REQUEST-binding">
+      <WL5G3N4:address location="https://integrationtrial5550-deoracleem99369.integration.us2.oraclecloud.com:443/integration/flowsvc/soap/TWEETFLIGHTSCHED_CH5/v01/"/>
+    </WL5G3N2:port>
+  </WL5G3N2:service>
+</WL5G3N2:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://xxx-yyy.integration.zzz.oraclecloud.com:443/integration/flowsvc/soap/TWEETFLIGHTSCHED_CH5/v01/</con:endpoint></con:endpoints><con:operation id="71336d72-4fd7-4439-b716-8c000c763464" isOneWay="false" action="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/FlightScheduleUpdate" name="FlightScheduleUpdate" bindingOperationName="FlightScheduleUpdate" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="fc934ec7-bbef-4a0a-adca-4c404fed4d54" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://xxx-yyy.integration.zzz.oraclecloud.com:443/integration/flowsvc/soap/TWEETFLIGHTSCHED_CH5/v01/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+   xmlns:int="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <int:ScheduleUpdate>\r
+         <int:faFlightID>?</int:faFlightID>\r
+         <int:ident>?</int:ident>\r
+         <int:origin>?</int:origin>\r
+         <int:destination>?</int:destination>\r
+         <int:updateType>?</int:updateType>\r
+         <int:departureTime>?</int:departureTime>\r
+         <int:arrivalTime>?</int:arrivalTime>\r
+         <int:duration>?</int:duration>\r
+         <int:durationString>?</int:durationString>\r
+         <!--Optional:-->\r
+         <int:longitude>?</int:longitude>\r
+         <!--Optional:-->\r
+         <int:latitude>?</int:latitude>\r
+      </int:ScheduleUpdate>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/FlightScheduleUpdate"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="52ae121f-8bde-428d-aac2-f95eb558adab" name="ScheduleUpdateTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="18383483-2e7f-4906-b121-68ecb439ef67" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCases" searchProperties="true"><con:settings/><con:testStep type="manualTestStep" name="Read First" id="b1c69aed-b679-4b66-93b0-41a9911fe5cd" disabled="true"><con:description>Before you run these test change the values of:
+
+- Endpoint to service:
+  You can edit this through one of the enroute or arrival test steps.
+  
+- Username of instance account:
+  You can change the value by opening the Properties teststep
+  
+- Password of instance account:
+  You can change the value by opening the Properties teststep  
+  
+Keep other values empty, are entered by groovy test steps</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>A working testcase :)</con:expectedResult></con:config></con:testStep><con:testStep type="properties" name="Properties" id="25e0c28b-7ee6-4302-ac46-5b9b315734a9"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>Username</con:name><con:value>ics-username</con:value></con:property><con:property><con:name>Password</con:name><con:value>ics-password</con:value></con:property><con:property><con:name>Created</con:name><con:value/></con:property><con:property><con:name>Expires</con:name><con:value/></con:property><con:property><con:name>Departure</con:name><con:value/></con:property><con:property><con:name>Arrival</con:name><con:value/></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Set Created and Expires" id="46f01e6e-2a50-4fd3-8f68-340c5f108e15"><con:settings/><con:config><script>Calendar created = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
+Calendar expires = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
+expires.add(Calendar.MINUTE, 10);
+testRunner.testCase.testSteps["Properties"].setPropertyValue( "Created", created.format("yyyy-MM-dd'T'HH:mm:ss'Z'"))
+testRunner.testCase.testSteps["Properties"].setPropertyValue( "Expires", expires.format("yyyy-MM-dd'T'HH:mm:ss'Z'"))</script></con:config></con:testStep><con:testStep type="groovy" name="Set Departure and Arrival" id="6f8a54dd-37da-472f-92b6-c2de31144edc"><con:settings/><con:config><script>Calendar departure = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
+Calendar arrival = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
+arrival.add(Calendar.HOUR, 8);
+departure.add(Calendar.MINUTE, 23);
+testRunner.testCase.testSteps["Properties"].setPropertyValue( "Departure", departure.format("yyyy-MM-dd'T'HH:mm:ss'Z'"))
+testRunner.testCase.testSteps["Properties"].setPropertyValue( "Arrival", arrival.format("yyyy-MM-dd'T'HH:mm:ss'Z'"))</script></con:config></con:testStep><con:testStep type="request" id="d69fb9cd-9dd2-45cb-aef1-58ee4a93e02c" name="enroute 23M delay"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FlightSchedulesPortType_ScheduleUpdate_REQUEST-binding</con:interface><con:operation>FlightScheduleUpdate</con:operation><con:request name="enroute 23M delay" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="d2e5e3f1-d785-4e63-9de8-b394eccf3357"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://xxx-yyy.integration.zzz.oraclecloud.com:443/integration/flowsvc/soap/TWEETFLIGHTSCHED_CH5/v01/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:int="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">\r
+   <soapenv:Header>\r
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">\r
+         <wsu:Timestamp wsu:Id="TS-47254C19BAEAEF2EB314713750130612">\r
+            <wsu:Created>${Properties#Created}</wsu:Created>\r
+            <wsu:Expires>${Properties#Expires}</wsu:Expires>\r
+         </wsu:Timestamp>\r
+         <wsse:UsernameToken wsu:Id="UsernameToken-47254C19BAEAEF2EB314713750100681">\r
+            <wsse:Username>${Properties#Username}</wsse:Username>\r
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">${Properties#Password}</wsse:Password>\r
+            <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">IRxzDgIoMiaETCVyIAPuZA==</wsse:Nonce>\r
+            <wsu:Created>${Properties#Created}</wsu:Created>\r
+         </wsse:UsernameToken>\r
+      </wsse:Security>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <int:ScheduleUpdate>\r
+         <int:faFlightID>101</int:faFlightID>\r
+         <int:ident>KL2016</int:ident>\r
+         <int:origin>AMS</int:origin>\r
+         <int:destination>SFO</int:destination>\r
+         <int:updateType>delayed</int:updateType>\r
+         <int:departureTime>${Properties#Departure}</int:departureTime>\r
+         <int:arrivalTime>${Properties#Arrival}</int:arrivalTime>\r
+         <int:duration>PT23M</int:duration>\r
+         <int:durationString>23 minutes</int:durationString>\r
+         <int:longitude>52.3105419</int:longitude>\r
+         <int:latitude>4.7660857</int:latitude>\r
+      </int:ScheduleUpdate>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="31281e3c-f441-4429-a59d-35594d7ebb9f" name="SOAP Response"/><con:credentials><con:username>admin@oracle-integration.cloud</con:username><con:password>1CSb00k#!</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/FlightScheduleUpdate"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="52287f03-5f44-4827-8788-fd46897d2200" name="enroute 10M early"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FlightSchedulesPortType_ScheduleUpdate_REQUEST-binding</con:interface><con:operation>FlightScheduleUpdate</con:operation><con:request name="enroute 10M early" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="d2e5e3f1-d785-4e63-9de8-b394eccf3357"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://xxx-yyy.integration.zzz.oraclecloud.com:443/integration/flowsvc/soap/TWEETFLIGHTSCHED_CH5/v01/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:int="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">\r
+   <soapenv:Header>\r
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">\r
+         <wsu:Timestamp wsu:Id="TS-47254C19BAEAEF2EB314713750130612">\r
+            <wsu:Created>${Properties#Created}</wsu:Created>\r
+            <wsu:Expires>${Properties#Expires}</wsu:Expires>\r
+         </wsu:Timestamp>\r
+         <wsse:UsernameToken wsu:Id="UsernameToken-47254C19BAEAEF2EB314713750100681">\r
+            <wsse:Username>${Properties#Username}</wsse:Username>\r
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">${Properties#Password}</wsse:Password>\r
+            <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">IRxzDgIoMiaETCVyIAPuZA==</wsse:Nonce>\r
+            <wsu:Created>${Properties#Created}</wsu:Created>\r
+         </wsse:UsernameToken>\r
+      </wsse:Security>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <int:ScheduleUpdate>\r
+         <int:faFlightID>102</int:faFlightID>\r
+         <int:ident>KL2016</int:ident>\r
+         <int:origin>AMS</int:origin>\r
+         <int:destination>SFO</int:destination>\r
+         <int:updateType>early</int:updateType>\r
+         <int:departureTime>${Properties#Departure}</int:departureTime>\r
+         <int:arrivalTime>${Properties#Arrival}</int:arrivalTime>\r
+         <int:duration>PT10M</int:duration>\r
+         <int:durationString>10 minutes</int:durationString>\r
+      </int:ScheduleUpdate>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="31281e3c-f441-4429-a59d-35594d7ebb9f" name="SOAP Response"/><con:credentials><con:username>admin@oracle-integration.cloud</con:username><con:password>1CSb00k#!</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/FlightScheduleUpdate"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Set Departure and Arrival 2" id="a34fb0c1-0b2b-4dc8-83f7-1abcad8e8a92"><con:settings/><con:config><script>Calendar departure = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
+Calendar arrival = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
+arrival.add(Calendar.HOUR, 9);
+arrival.add(Calendar.MINUTE, 2);
+departure.add(Calendar.MINUTE, -10);
+testRunner.testCase.testSteps["Properties"].setPropertyValue( "Departure", departure.format("yyyy-MM-dd'T'HH:mm:ss'Z'"))
+testRunner.testCase.testSteps["Properties"].setPropertyValue( "Arrival", arrival.format("yyyy-MM-dd'T'HH:mm:ss'Z'"))</script></con:config></con:testStep><con:testStep type="request" id="3abf69e7-1dd3-4427-a5d2-191b800835d6" name="arrival 1H and 2M delay"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FlightSchedulesPortType_ScheduleUpdate_REQUEST-binding</con:interface><con:operation>FlightScheduleUpdate</con:operation><con:request name="arrival 1H and 2M delay" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="d2e5e3f1-d785-4e63-9de8-b394eccf3357"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://xxx-yyy.integration.zzz.oraclecloud.com:443/integration/flowsvc/soap/TWEETFLIGHTSCHED_CH5/v01/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:int="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">\r
+   <soapenv:Header>\r
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">\r
+         <wsu:Timestamp wsu:Id="TS-47254C19BAEAEF2EB314713750130612">\r
+            <wsu:Created>${Properties#Created}</wsu:Created>\r
+            <wsu:Expires>${Properties#Expires}</wsu:Expires>\r
+         </wsu:Timestamp>\r
+         <wsse:UsernameToken wsu:Id="UsernameToken-47254C19BAEAEF2EB314713750100681">\r
+            <wsse:Username>${Properties#Username}</wsse:Username>\r
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">${Properties#Password}</wsse:Password>\r
+            <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">IRxzDgIoMiaETCVyIAPuZA==</wsse:Nonce>\r
+            <wsu:Created>${Properties#Created}</wsu:Created>\r
+         </wsse:UsernameToken>\r
+      </wsse:Security>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <int:ScheduleUpdate>\r
+         <int:faFlightID>103</int:faFlightID>\r
+         <int:ident>KL2016</int:ident>\r
+         <int:origin>AMS</int:origin>\r
+         <int:destination>SFO</int:destination>\r
+         <int:updateType>delayed</int:updateType>\r
+         <int:departureTime>${Properties#Departure}</int:departureTime>\r
+         <int:arrivalTime>${Properties#Arrival}</int:arrivalTime>\r
+         <int:duration>PT1H2M</int:duration>\r
+         <int:durationString>1 hour and 2 minutes</int:durationString>\r
+      </int:ScheduleUpdate>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="31281e3c-f441-4429-a59d-35594d7ebb9f" name="SOAP Response"/><con:credentials><con:username>admin@oracle-integration.cloud</con:username><con:password>1CSb00k#!</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/FlightScheduleUpdate"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="dee344db-6d3b-4250-9a14-76901de3e30c" name="arrival 6M early"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FlightSchedulesPortType_ScheduleUpdate_REQUEST-binding</con:interface><con:operation>FlightScheduleUpdate</con:operation><con:request name="arrival 6M early" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="d2e5e3f1-d785-4e63-9de8-b394eccf3357"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://xxx-yyy.integration.zzz.oraclecloud.com:443/integration/flowsvc/soap/TWEETFLIGHTSCHED_CH5/v01/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:int="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">\r
+   <soapenv:Header>\r
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">\r
+         <wsu:Timestamp wsu:Id="TS-47254C19BAEAEF2EB314713750130612">\r
+            <wsu:Created>${Properties#Created}</wsu:Created>\r
+            <wsu:Expires>${Properties#Expires}</wsu:Expires>\r
+         </wsu:Timestamp>\r
+         <wsse:UsernameToken wsu:Id="UsernameToken-47254C19BAEAEF2EB314713750100681">\r
+            <wsse:Username>${Properties#Username}</wsse:Username>\r
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">${Properties#Password}</wsse:Password>\r
+            <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">IRxzDgIoMiaETCVyIAPuZA==</wsse:Nonce>\r
+            <wsu:Created>${Properties#Created}</wsu:Created>\r
+         </wsse:UsernameToken>\r
+      </wsse:Security>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <int:ScheduleUpdate>\r
+         <int:faFlightID>105</int:faFlightID>\r
+         <int:ident>KL2016</int:ident>\r
+         <int:origin>AMS</int:origin>\r
+         <int:destination>SFO</int:destination>\r
+         <int:updateType>on time</int:updateType>\r
+         <int:departureTime>${Properties#Departure}</int:departureTime>\r
+         <int:arrivalTime>${Properties#Arrival}</int:arrivalTime>\r
+         <int:duration>PT0S</int:duration>\r
+         <int:durationString></int:durationString>\r
+      </int:ScheduleUpdate>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="31281e3c-f441-4429-a59d-35594d7ebb9f" name="SOAP Response"/><con:credentials><con:username>admin@oracle-integration.cloud</con:username><con:password>1CSb00k#!</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/FlightScheduleUpdate"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="2c73bd76-6b4f-4854-8b4b-bdc51a1f9a41" name="arrival on time"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>FlightSchedulesPortType_ScheduleUpdate_REQUEST-binding</con:interface><con:operation>FlightScheduleUpdate</con:operation><con:request name="arrival on time" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="d2e5e3f1-d785-4e63-9de8-b394eccf3357"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://xxx-yyy.integration.zzz.oraclecloud.com:443/integration/flowsvc/soap/TWEETFLIGHTSCHED_CH5/v01/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:int="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">\r
+   <soapenv:Header>\r
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">\r
+         <wsu:Timestamp wsu:Id="TS-47254C19BAEAEF2EB314713750130612">\r
+            <wsu:Created>${Properties#Created}</wsu:Created>\r
+            <wsu:Expires>${Properties#Expires}</wsu:Expires>\r
+         </wsu:Timestamp>\r
+         <wsse:UsernameToken wsu:Id="UsernameToken-47254C19BAEAEF2EB314713750100681">\r
+            <wsse:Username>${Properties#Username}</wsse:Username>\r
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">${Properties#Password}</wsse:Password>\r
+            <wsse:Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">IRxzDgIoMiaETCVyIAPuZA==</wsse:Nonce>\r
+            <wsu:Created>${Properties#Created}</wsu:Created>\r
+         </wsse:UsernameToken>\r
+      </wsse:Security>\r
+   </soapenv:Header>\r
+   <soapenv:Body>\r
+      <int:ScheduleUpdate>\r
+         <int:faFlightID>104</int:faFlightID>\r
+         <int:ident>KL2016</int:ident>\r
+         <int:origin>AMS</int:origin>\r
+         <int:destination>SFO</int:destination>\r
+         <int:updateType>early</int:updateType>\r
+         <int:departureTime>${Properties#Departure}</int:departureTime>\r
+         <int:arrivalTime>${Properties#Arrival}</int:arrivalTime>\r
+         <int:duration>PT6M</int:duration>\r
+         <int:durationString>6 minutes</int:durationString>\r
+      </int:ScheduleUpdate>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="31281e3c-f441-4429-a59d-35594d7ebb9f" name="SOAP Response"/><con:credentials><con:username>admin@oracle-integration.cloud</con:username><con:password>1CSb00k#!</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/FlightScheduleUpdate"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>Created</con:name><con:value>2016-08-16T20:11:01Z</con:value></con:property><con:property><con:name>Expires</con:name><con:value>2016-08-16T20:21:01Z</con:value></con:property></con:properties></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

@@ -1,0 +1,77 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:FS="http://oracle-integration.cloud/soap/IntegratedTargetFlightUpdates/"
+  targetNamespace="http://oracle-integration.cloud/soap/IntegratedTargetFlightUpdates/">
+  
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified"
+               targetNamespace="http://oracle-integration.cloud/soap/IntegratedTargetFlightUpdates/">
+               
+      <xs:complexType name="FlightProgressType">
+        <xs:sequence>
+          <xs:element name="faFlightID" type="xs:string"/>
+          <xs:element name="ident" type="xs:string"/>
+          <xs:element name="prefix" type="xs:string"/>
+          <xs:element name="type" type="xs:string"/>
+          <xs:element name="suffix" type="xs:string"/>
+          <xs:element name="origin" type="xs:string"/>
+          <xs:element name="destination" type="xs:string"/>
+          <xs:element name="timeout" type="xs:string"/>
+          <xs:element name="timestamp" type="xs:int"/>
+          <xs:element name="longitude" type="xs:float"/>
+          <xs:element name="latitude" type="xs:float"/>
+          <xs:element name="updateType" type="xs:string"/>
+          <xs:element minOccurs="0" name="departureTime" type="xs:int"/>
+          <xs:element minOccurs="0" name="firstPositionTime" type="xs:int"/>
+          <xs:element minOccurs="0" name="arrivalTime" type="xs:int"/>
+          <xs:element minOccurs="0" name="lowLongitude" type="xs:float"/>
+          <xs:element minOccurs="0" name="lowLatitude" type="xs:float"/>
+          <xs:element minOccurs="0" name="highLongitude" type="xs:float"/>
+          <xs:element minOccurs="0" name="highLatitude" type="xs:float"/>
+          <xs:element minOccurs="0" name="groundspeed" type="xs:int"/>
+          <xs:element minOccurs="0" name="altitude" type="xs:int"/>
+          <xs:element minOccurs="0" name="heading" type="xs:int"/>
+          <xs:element minOccurs="0" name="altitudeStatus" type="xs:string"/>
+          <xs:element minOccurs="0" name="altitudeChange" type="xs:string"/>
+          <xs:element minOccurs="0" name="waypoints" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <!-- details of the flight being reported on -->
+      <xs:element name="FlightProgress" type="FS:FlightProgressType"/>
+    </xs:schema>
+  </wsdl:types>
+  
+  <!-- WSDL Message Definitions - Start -->
+  <wsdl:message name="FlightInfoUpdateMsg">
+    <wsdl:part name="parameters" element="FS:FlightProgress"/>
+  </wsdl:message>
+  <!-- WSDL Message Definitions - End -->
+  <wsdl:portType name="FlightInfoUpdateType">
+    <wsdl:operation name="FlightStatusUpdate">
+      <wsdl:input message="FS:FlightInfoUpdateMsg"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FlightUpdatesWSDL" type="FS:FlightInfoUpdateType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="FlightStatusUpdate">
+      <wsdl:documentation>the soapAction name here needs to be the action name setup in mockable.io</wsdl:documentation>
+      <soap:operation soapAction="FlightStatusUpdate" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <!-- WSDL Service Definition -->
+  <wsdl:service name="FlightUpdates">
+    <wsdl:documentation>FlightUpdates Web Services - this represents the API presented by the SOAP Service we want to integrate downstream</wsdl:documentation>
+    <wsdl:port name="FlightUpdatesSoap" binding="FS:FlightUpdatesWSDL">
+      <wsdl:documentation>This needs to correlate to our mockable configuration</wsdl:documentation>
+      <soap:address location="http://demoxxxxxxx.mockable.io/FlightServices"/>
+      <!-- soap:address location="http://demo8825131.mockable.io/FlightServices"/-->
+    </wsdl:port>
+  </wsdl:service> </wsdl:definitions>

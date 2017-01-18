@@ -1,0 +1,108 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:FS="http://oracle-integration.cloud/soap/IntegratedSourceFlightAirlines/"
+                  targetNamespace="http://oracle-integration.cloud/soap/IntegratedSourceFlightAirlines/">
+	<wsdl:types>
+		<xs:schema elementFormDefault="qualified"
+               targetNamespace="http://oracle-integration.cloud/soap/IntegratedSourceFlightAirlines/">
+			<xs:element name="AllAirlines" type="FS:AllAirlinesRequestType">
+				<xs:annotation>
+					<xs:documentation>Retrieve a list of airlines, user can address max results returned</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AllAirlinesResult" type="FS:AllAirlinesResultType">
+				<xs:annotation>
+					<xs:documentation>Resultset with airlines known in the system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AllAirlinesFault" type="FS:BusinessFaultType">
+				<xs:annotation>
+					<xs:documentation>Fault when back-end returns an exception</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:complexType name="AllAirlinesRequestType">
+				<xs:sequence>
+					<xs:element name="maxResults" type="xs:positiveInteger" minOccurs="0"/>
+					<xs:element name="startWith" type="xs:positiveInteger" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="AllAirlinesResultType">
+				<xs:sequence>
+					<xs:element name="Airline" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="ICAO">
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:minLength value="2"/>
+											<xs:maxLength value="3"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="name" type="xs:string"/>
+								<xs:element name="callSign" type="xs:string"/>
+								<xs:element name="country" type="xs:string"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="BusinessFaultType">
+				<xs:sequence>
+					<xs:element name="FaultDetails">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="code" type="xs:string"/>
+								<xs:element name="message" type="xs:string"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<!-- WSDL Message Definitions - Start -->
+	<wsdl:message name="AllAirlinesRequestMsg">
+		<wsdl:part name="parameters" element="FS:AllAirlines"/>
+	</wsdl:message>
+	<wsdl:message name="AllAirlinesResultMsg">
+		<wsdl:part name="parameters" element="FS:AllAirlinesResult"/>
+	</wsdl:message>
+	<wsdl:message name="AllAirlinesFaultMsg">
+		<wsdl:part name="parameters" element="FS:AllAirlinesFault"/>
+	</wsdl:message>
+	<!-- WSDL Message Definitions - End -->
+	<wsdl:portType name="FlightAirlinesPortType">
+		<wsdl:operation name="AllAirlines">
+			<wsdl:input message="FS:AllAirlinesRequestMsg"/>
+			<wsdl:output message="FS:AllAirlinesResultMsg"/>
+			<wsdl:fault name="AllAirlinesFault" message="FS:AllAirlinesFaultMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="FlightAirlinesWSDL" type="FS:FlightAirlinesPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="AllAirlines">
+			<soap:operation soapAction="AllAirlines" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="AllAirlinesFault">
+				<soap:fault name="Fault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<!-- WSDL Service Definition -->
+	<wsdl:service name="FlightAirlines">
+		<wsdl:documentation>FlightAirlines Web Services - this represents the API presented by the SOAP Service we want to integrate downstream</wsdl:documentation>
+		<wsdl:port name="FlightAirlinesSoap" binding="FS:FlightAirlinesWSDL">
+			<wsdl:documentation>As ICS should provide the URI for the service we leave the location attribute out</wsdl:documentation>
+			<soap:address location="http://oracle-integration.cloud"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

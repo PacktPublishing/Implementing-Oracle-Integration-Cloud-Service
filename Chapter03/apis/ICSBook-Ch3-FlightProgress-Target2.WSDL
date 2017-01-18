@@ -1,0 +1,95 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" 
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:FPos="http://oracle-integration.cloud/soap/IntegratedFlightPositions"
+                  targetNamespace="http://oracle-integration.cloud/soap/IntegratedFlightPositions"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:documentation>Chapter 3 second subscriber</wsdl:documentation>
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://oracle-integration.cloud/soap/IntegratedFlightPositions">
+      <xs:complexType name="FlightShortPositionUpdateType">
+        <xs:sequence>
+          <xs:element name="faFlightID" type="xs:string"/>
+          <xs:element name="ident" type="xs:string"/>
+          <xs:element name="prefix" type="xs:string"/>
+          <xs:element name="type" type="xs:string"/>
+          <xs:element name="suffix" type="xs:string"/>
+          <xs:element name="timestamp" type="xs:int"/>
+          <xs:element name="longitude" type="xs:float"/>
+          <xs:element name="latitude" type="xs:float"/>
+          <xs:element name="altitude" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      
+      <xs:complexType name="FlightPositionUpdateType">
+        <xs:annotation>
+          <xs:documentation>Extened the short position report to carry additional attributes</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+          <xs:extension base="FPos:FlightShortPositionUpdateType">
+            <xs:sequence>
+              <xs:element name="origin" type="xs:string"/>
+              <xs:element name="destination" type="xs:string"/>
+              <xs:element minOccurs="0" name="departureTime" type="xs:int"/>
+              <xs:element minOccurs="0" name="arrivalTime" type="xs:int"/>
+              <xs:element minOccurs="0" name="altitude" type="xs:int"/>
+              <xs:element minOccurs="0" name="FlightNotes" type="xs:string"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      
+      <!-- details of the flight being reported on -->
+      <xs:element name="FlightPosition" type="FPos:FlightPositionUpdateType"/>
+      <xs:element name="FlightShortPosition" type="FPos:FlightShortPositionUpdateType"/>
+    </xs:schema>
+  </wsdl:types>
+  
+  <!-- WSDL Message Definitions - Start -->
+  <wsdl:message name="FlightShortPositionUpdateMsg">
+    <wsdl:part name="parameters" element="FPos:FlightShortPosition"/>
+  </wsdl:message>
+  <wsdl:message name="FlightPositionUpdateMsg">
+    <wsdl:part name="parameters" element="FPos:FlightPosition"/>
+  </wsdl:message>
+  
+  <!-- WSDL Message Definitions - End -->
+  <wsdl:portType name="FlightPositionUpdateType">
+    <wsdl:operation name="FlightPositionUpdate">
+      <wsdl:input message="FPos:FlightPositionUpdateMsg"/>
+    </wsdl:operation>
+    <wsdl:operation name="FlightShortPositionUpdate">
+      <wsdl:input message="FPos:FlightShortPositionUpdateMsg"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FlightPositionWSDL" type="FPos:FlightPositionUpdateType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="FlightPositionUpdate">
+      <wsdl:documentation>the soapAction name here needs to be the action name setup in mockable.io</wsdl:documentation>
+      <soap:operation soapAction="FlightPositionUpdate" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="FlightShortPositionUpdate">
+      <wsdl:documentation>the soapAction name here needs to be the action name setup in mockable.io</wsdl:documentation>
+      <soap:operation soapAction="FlightShortPositionUpdate" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <!-- WSDL Service Definition -->
+  <wsdl:service name="FlightPositionUpdate">
+    <wsdl:port name="FlightPositionService" binding="FPos:FlightPositionWSDL">
+      <wsdl:documentation>This needs to correlate to our mockable configuration</wsdl:documentation>
+      <soap:address location="http://demoxxxx.mockable.io/IntegratedFlightPosition"/>
+      <!--soap:address location="http://demo8825131.mockable.io/IntegratedFlightPosition"/-->
+
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

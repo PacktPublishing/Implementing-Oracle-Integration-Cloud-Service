@@ -1,0 +1,219 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:FS="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/"
+                  targetNamespace="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/">
+	<wsdl:types>
+		<xs:schema elementFormDefault="qualified"
+               targetNamespace="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/">
+			<xs:element name="ScheduleUpdate" type="FS:FlightScheduleType">
+				<xs:annotation>
+					<xs:documentation>Flight Schedule update notification</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ScheduleUpdateResult" type="FS:NotificationResultType">
+				<xs:annotation>
+					<xs:documentation>Callback when notification received successful</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MissingPersonReport" type="FS:MissingPersonType">
+				<xs:annotation>
+					<xs:documentation>Missing person notification</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MissingPersonResult" type="FS:NotificationResultType">
+				<xs:annotation>
+					<xs:documentation>Callback when notification received successful</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BusinessFault" type="FS:BusinessFaultType">
+				<xs:annotation>
+					<xs:documentation>Fault when back-end returns an exception</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ServiceHeader" type="FS:ServiceHeaderType">
+				<xs:annotation>
+					<xs:documentation>Header for service request and response</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:complexType name="FlightScheduleType">
+				<xs:sequence>
+					<xs:element name="faFlightID" type="xs:string"/>
+					<xs:element name="ident" type="xs:string"/>
+					<xs:element name="origin" type="xs:string"/>
+					<xs:element name="destination" type="xs:string"/>
+					<xs:element name="updateType" type="FS:updateType"/>
+					<xs:element name="departureTime" type="xs:dateTime"/>
+					<xs:element name="arrivalTime" type="xs:dateTime"/>
+					<xs:element name="duration" type="xs:duration"/>
+					<xs:element name="durationString" type="xs:string"/>
+					<xs:element name="longitude" type="xs:float" minOccurs="0"/>
+					<xs:element name="latitude" type="xs:float" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="MissingPersonType">
+				<xs:sequence>
+					<xs:element name="faFlightID" type="xs:string"/>
+					<xs:element name="ident" type="xs:string"/>
+					<xs:element name="origin" type="xs:string"/>
+					<xs:element name="destination" type="xs:string"/>
+					<xs:element name="missingPerson" type="FS:PersonType"/>
+					<xs:element name="mailSettings" type="FS:MailSettingsType"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="NotificationResultType">
+				<xs:sequence>
+					<xs:element name="parentID" type="xs:string"/>
+					<xs:element name="processed" type="xs:boolean"/>
+					<xs:element name="message" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="BusinessFaultType">
+				<xs:sequence>
+					<xs:element name="FaultDetails">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="code" type="xs:string"/>
+								<xs:element name="message" type="xs:string"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="PersonType">
+				<xs:sequence>
+					<xs:element name="idNumber" type="xs:string"/>
+					<xs:element name="idType" type="FS:idType"/>
+					<xs:element name="title" type="FS:titleType"/>
+					<xs:element name="firstName" type="xs:string" minOccurs="0"/>
+					<xs:element name="initials" type="xs:string" minOccurs="0"/>
+					<xs:element name="lastName" type="xs:string"/>
+					<xs:element name="luggageTag" type="FS:guidType"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="MailSettingsType">
+				<xs:sequence>
+					<xs:element name="from" type="xs:string"/>
+					<xs:element name="to" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ServiceHeaderType">
+				<xs:sequence>
+					<xs:element name="conversationId" type="FS:guidType"/>
+					<xs:element name="messageId" type="FS:messageIdType"/>
+					<xs:element name="refToMessageId" minOccurs="0" type="FS:messageIdType"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:simpleType name="idType">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="passport"/>
+					<xs:enumeration value="EU-ID"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="guidType">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+                The representation of a GUID, generally the id of an element.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\}"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="titleType">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Mr"/>
+					<xs:enumeration value="Mrs"/>
+					<xs:enumeration value="Ms"/>
+					<xs:enumeration value="Mx"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="messageIdType">
+				<xs:restriction base="xs:string">
+					<xs:pattern value="[0-9A-F]{8}\.[0-9A-F]{8}@[a-zA-Z]+"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="updateType">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="delayed"/>
+					<xs:enumeration value="early"/>
+					<xs:enumeration value="on time"/>
+					<xs:enumeration value="at gate"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:schema>
+	</wsdl:types>
+	<!-- WSDL Message Definitions - Start -->
+	<wsdl:message name="FlightScheduleUpdateMsg">
+		<wsdl:part name="parameters" element="FS:ScheduleUpdate"/>
+	</wsdl:message>
+	<wsdl:message name="FlightScheduleUpdateResultMsg">
+		<wsdl:part name="parameters" element="FS:ScheduleUpdateResult"/>
+	</wsdl:message>
+	<wsdl:message name="MissingPersonReportMsg">
+		<wsdl:part name="parameters" element="FS:MissingPersonReport"/>
+	</wsdl:message>
+	<wsdl:message name="MissingPersonResultMsg">
+		<wsdl:part name="parameters" element="FS:MissingPersonResult"/>
+	</wsdl:message>
+	<wsdl:message name="FlightScheduleFaultMsg">
+		<wsdl:part name="parameters" element="FS:BusinessFault"/>
+	</wsdl:message>
+	<wsdl:message name="ServiceHeaderMsg">
+		<wsdl:part name="header" element="FS:ServiceHeader"/>
+	</wsdl:message>
+	<!-- WSDL Message Definitions - End -->
+	<wsdl:portType name="FlightSchedulesPortType">
+		<wsdl:operation name="FlightScheduleUpdate">
+			<wsdl:input message="FS:FlightScheduleUpdateMsg"/>
+			<wsdl:output message="FS:FlightScheduleUpdateResultMsg"/>
+			<wsdl:fault name="ScheduleUpdateFault" message="FS:FlightScheduleFaultMsg"/>
+		</wsdl:operation>
+		<wsdl:operation name="MissingPersonReport">
+			<wsdl:input message="FS:MissingPersonReportMsg"/>
+			<wsdl:output message="FS:MissingPersonResultMsg"/>
+			<wsdl:fault name="MissingPersonFault" message="FS:FlightScheduleFaultMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="FlightSchedulesWSDL" type="FS:FlightSchedulesPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="FlightScheduleUpdate">
+			<soap:operation soapAction="FlightScheduleUpdate" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+				<soap:header message="FS:ServiceHeaderMsg" part="header" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+				<soap:header message="FS:ServiceHeaderMsg" part="header" use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="ScheduleUpdateFault">
+				<soap:fault name="ScheduleUpdateFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="MissingPersonReport">
+			<soap:operation soapAction="MissingPersonReport" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+				<soap:header message="FS:ServiceHeaderMsg" part="header" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+				<soap:header message="FS:ServiceHeaderMsg" part="header" use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="MissingPersonFault">
+				<soap:fault name="MissingPersonFault" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<!-- WSDL Service Definition -->
+	<wsdl:service name="FlightSchedules">
+		<wsdl:documentation>FlightSchedules Web Services - this represents the API presented by the SOAP Service we want to integrate downstream</wsdl:documentation>
+		<wsdl:port name="FlightSchedulesSoap" binding="FS:FlightSchedulesWSDL">
+			<wsdl:documentation>As ICS should provide the URI for the service we leave the location attribute out</wsdl:documentation>
+			<soap:address location="http://oracle-integration.cloud"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

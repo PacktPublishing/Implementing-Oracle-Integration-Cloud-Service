@@ -1,0 +1,45 @@
+﻿FORMAT: 1A
+
+# ICS Flights API
+
+Flights is a simple API allowing consumers to view aviation data e.g. airlines and flight data. 
+This API is used in the several chapters of the book **Implementing Oracle Integration Cloud Service**. 
+
+# Airlines [/airlines]
+
+Airlines resource for retrieving airline information. 
+Retrieve a list of all airlines or information of a specific airline.
+
+## Retrieve All Airlines [GET]
++ Response 200 (application/json)
+    + Attributes (array[AllAirlines])
+    
+
+# Data Structures
+
+## AllAirlines (object)
++ airline (array[AirlineBAW, AirlineDLH, AirlineKLM, AirlineUAL])
+
+## AirlineBAW (object)
++ icao: BAW (string, required)
++ name: British Airways (string, required)
++ callsign: SPEEDBIRD (string)
++ country: United Kingdom (string)
+
+## AirlineDLH (object)
++ icao: DLH (string, required)
++ name: Lufthansa (string, required)
++ callsign: LUFTHANSA (string)
++ country: Germany (string)
+
+## AirlineKLM (object)
++ icao: KLM (string, required)
++ name: KLM (string, required)
++ callsign: KLM (string)
++ country: The Netherlands (string)
+
+## AirlineUAL (object)
++ icao: UAL (string, required)
++ name: United Airlines (string, required)
++ callsign: UNITED (string)
++ country: United States (string)

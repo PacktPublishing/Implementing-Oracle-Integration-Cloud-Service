@@ -1,0 +1,19 @@
+<soapenv:Envelope xmlns:int="http://oracle-integration.cloud/soap/IntegratedSourceFlightSitReps/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <soapenv:Header>
+   </soapenv:Header>
+   <soapenv:Body>
+      <int:FlightProgress>
+         <int:ID>994</int:ID>
+         <int:ident>110</int:ident>
+         <int:prefix>110</int:prefix>
+         <int:type>POS</int:type>
+         <int:ICAORef>BA</int:ICAORef>
+         <int:origin>SFO</int:origin>
+         <int:destination>LDN</int:destination>
+         <int:timeout>1</int:timeout>
+         <int:timestamp>1</int:timestamp>
+         <int:longitude>1</int:longitude>
+         <int:latitude>1</int:latitude>
+      </int:FlightProgress>
+   </soapenv:Body>
+</soapenv:Envelope>

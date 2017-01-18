@@ -1,0 +1,77 @@
+﻿FORMAT: 1A
+
+# ICS Flights API
+
+Flights is a simple API allowing consumers to view aviation data e.g. airlines and flight data. 
+This API is used in the several chapters of the book **Implementing Oracle Integration Cloud Service**. 
+
+# Airlines [/airlines]
+
+Airlines resource for retrieving airline information. 
+Retrieve a list of all airlines with its information.
+
+## Retrieve All Airlines [GET]
++ Response 200 (application/json)
+    + Attributes (array[AllAirlines])
+
+    
+# Airline By Code BA [/airlines/BA]
+
+Airline resource for retrieving specific British Airways information.
+Retrieve an airline by its *2-char code*.
+
+## Retrieve Airline [GET]
++ Response 200 (application/json)
+    + Attributes (AirlineBAW)
+
+
+# Airline By Code KL [/airlines/KL]
+
+Airline resource for retrieving specific British Airways information.
+Retrieve an airline by its *2-char code*.
+
+## Retrieve Airline [GET]
++ Response 200 (application/json)
+    + Attributes (AirlineKLM)
+
+
+# Airline By Code LH [/airlines/LH]
+
+Airline resource for retrieving specific Lufthansa information.
+Retrieve an airline by its *2-char code*.
+
+## Retrieve Airline [GET]
++ Response 200 (application/json)
+    + Attributes (AirlineDLH)
+
+# Data Structures
+
+## AllAirlines (object)
++ airline (array[AirlineBAW, AirlineDLH, AirlineKLM, AirlineUAL])
+
+## AirlineBAW (object)
++ icao: BAW (string, required)
++ name: British Airways (string, required)
++ callsign: SPEEDBIRD (string)
++ country: United Kingdom (string)
++ social: Salesforce
+
+## AirlineDLH (object)
++ icao: DLH (string, required)
++ name: Lufthansa (string, required)
++ callsign: LUFTHANSA (string)
++ country: Germany (string)
++ social: LinkedIn
+
+## AirlineKLM (object)
++ icao: KLM (string, required)
++ name: KLM (string, required)
++ callsign: KLM (string)
++ country: The Netherlands (string)
++ social: Twitter
+
+## AirlineUAL (object)
++ icao: UAL (string, required)
++ name: United Airlines (string, required)
++ callsign: UNITED (string)
++ country: United States (string)

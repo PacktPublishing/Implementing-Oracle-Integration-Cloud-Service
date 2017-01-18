@@ -1,0 +1,92 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+   xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+   xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+   xmlns:FStat ="http://oracle-integration.cloud/soap/FlightStatusInfoSystem"
+   targetNamespace="http://oracle-integration.cloud/soap/FlightStatusInfoSystem">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified"
+               targetNamespace="http://oracle-integration.cloud/soap/FlightStatusInfoSystem">
+                              
+               
+      <xs:complexType name="FlightLastReportedStatusRequestType">
+        <xs:sequence>
+          <xs:element name="faFlightID" type="xs:string"/>
+          <xs:element minOccurs="0" name="ident" type="xs:string"/>
+          <xs:element minOccurs="0" name="prefix" type="xs:string"/>
+          <xs:element minOccurs="0" name="suffix" type="xs:string"/>          
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="FlightNotesType">
+        <xs:sequence>
+          <xs:element name="NoteType" type="xs:string"/>
+          <xs:element name="Note" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+               
+      <xs:complexType name="FlightLastReportedStatusResponseType">
+        <xs:sequence>
+          <xs:element name="faFlightID" type="xs:string"/>
+          <xs:element name="ident" type="xs:string"/>
+          <xs:element name="prefix" type="xs:string"/>
+          <xs:element name="suffix" type="xs:string"/>                    
+          <xs:element name="timestamp" type="xs:int"/>
+          <xs:element name="longitude" type="xs:float"/>
+          <xs:element name="latitude" type="xs:float"/>
+          <xs:element name="updateType" type="xs:string"/>
+          <xs:element name="altitude" type="xs:int"/>
+          <xs:element name="heading" type="xs:int"/>
+          <xs:element minOccurs="0" maxOccurs="10" name="flightNotes" type="FStat:FlightNotesType"/>
+          <xs:element minOccurs="0" name="simpleNote" type="xs:string"/>          
+        </xs:sequence>
+      </xs:complexType>
+      
+      <!-- details of the flight being reported on -->
+      <xs:element name="FlightLastStatusReply" type="FStat:FlightLastReportedStatusResponseType"/>
+      <xs:element name="FlightStatusEnquiry" type="FStat:FlightLastReportedStatusRequestType"/>
+      
+    </xs:schema>
+  </wsdl:types>
+  
+  
+  <!-- WSDL Message Definitions - Start -->
+  <wsdl:message name="FlightLastReportedStatusEnquiryMsg">
+    <wsdl:part name="parameters" element="FStat:FlightStatusEnquiry"/>
+  </wsdl:message>
+  <wsdl:message name="FlightLastReportedStatusResponseMsg">
+    <wsdl:part name="parameters" element="FStat:FlightLastStatusReply"/>
+  </wsdl:message>  
+  
+  
+  <!-- WSDL Message Definitions - End -->
+  <wsdl:portType name="FlightLastStatusEnquiryWSDL">
+    <wsdl:operation name="FlightStatusEnquiry">
+      <wsdl:input message="FStat:FlightLastReportedStatusEnquiryMsg"/>
+      <wsdl:output message="FStat:FlightLastReportedStatusResponseMsg"/>      
+    </wsdl:operation>
+  </wsdl:portType>
+  
+  <wsdl:binding name="FlightStatusEnquiryWSDL" type="FStat:FlightLastStatusEnquiryWSDL">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="FlightStatusEnquiry">
+      <wsdl:documentation>the soapAction name here needs to be the action name setup in mockable.io</wsdl:documentation>
+      <soap:operation soapAction="FlightStatusEnquiry" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>      
+    </wsdl:operation>
+  </wsdl:binding>
+  
+  <!-- WSDL Service Definition -->
+  <wsdl:service name="FlightLastStatusEnquiry">
+    <wsdl:documentation>FlightLastStatusEnquiry Web Services - this represents the API presented by the SOAP Service we want a test client to use</wsdl:documentation>
+    <wsdl:port name="FlightLastStatusEnquirySoap" binding="FStat:FlightStatusEnquiryWSDL">
+    </wsdl:port>
+  </wsdl:service> </wsdl:definitions>

@@ -1,0 +1,8 @@
+{"FlightSitRepResponseType":
+       {
+          "ID" : "1234",
+          "ident" : "1234",     
+          "updateType" : "Complete",
+          "notified" : "yes"
+       }
+}

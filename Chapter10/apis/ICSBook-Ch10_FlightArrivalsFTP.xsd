@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nxsd="http://xmlns.oracle.com/pcbpel/nxsd" xmlns:tns="http://TargetNamespace.com/fileReference/WriteUpdateToFTP" targetNamespace="http://TargetNamespace.com/fileReference/WriteUpdateToFTP" elementFormDefault="qualified" attributeFormDefault="unqualified" nxsd:version="NXSD" nxsd:stream="chars" nxsd:encoding="UTF8" nxsd:hasHeader="true" nxsd:headerLines="1" nxsd:headerLinesTerminatedBy="${eol}">
+	<xsd:element name="FlightArrivals">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element minOccurs="1" maxOccurs="unbounded" ref="tns:FlightArrival"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="FlightArrival" type="tns:FlightArrivalType"/>
+	<xsd:complexType name="FlightArrivalType">
+		<xsd:sequence>
+			<xsd:element name="flightId" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"/>
+			<xsd:element name="origin" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"/>
+			<xsd:element name="destination" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"/>
+			<xsd:element name="gate" type="xsd:string" nxsd:style="terminated" nxsd:terminatedBy=";" nxsd:quotedBy="&quot;"/>
+			<xsd:element name="arrivalTime" type="xsd:dateTime" nxsd:style="terminated" nxsd:terminatedBy="${eol}" nxsd:quotedBy="&quot;"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

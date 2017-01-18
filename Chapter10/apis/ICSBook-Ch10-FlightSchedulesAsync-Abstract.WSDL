@@ -1,0 +1,70 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:FS="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/"
+                  targetNamespace="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/">
+	<wsdl:types>
+		<xs:schema elementFormDefault="qualified"
+               targetNamespace="http://oracle-integration.cloud/soap/IntegratedSourceFlightSchedules/">
+			<xs:element name="ScheduleUpdate" type="FS:FlightScheduleType">
+				<xs:annotation>
+					<xs:documentation>Flight Schedule update notification</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ScheduleUpdateResult" type="FS:NotificationResultType">
+				<xs:annotation>
+					<xs:documentation>Callback when notification received successful</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:complexType name="FlightScheduleType">
+				<xs:sequence>
+					<xs:element name="faFlightID" type="xs:string"/>
+					<xs:element name="ident" type="xs:string"/>
+					<xs:element name="origin" type="xs:string"/>
+					<xs:element name="destination" type="xs:string"/>
+					<xs:element name="updateType" type="FS:updateType"/>
+					<xs:element name="departureTime" type="xs:dateTime"/>
+					<xs:element name="arrivalTime" type="xs:dateTime"/>
+					<xs:element name="duration" type="xs:duration"/>
+					<xs:element name="durationString" type="xs:string"/>
+					<xs:element name="longitude" type="xs:float" minOccurs="0"/>
+					<xs:element name="latitude" type="xs:float" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="NotificationResultType">
+				<xs:sequence>
+					<xs:element name="parentID" type="xs:string"/>
+					<xs:element name="processed" type="xs:boolean"/>
+					<xs:element name="message" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:simpleType name="updateType">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="delayed"/>
+					<xs:enumeration value="early"/>
+					<xs:enumeration value="on time"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:schema>
+	</wsdl:types>
+	<!-- WSDL Message Definitions - Start -->
+	<wsdl:message name="FlightScheduleUpdateMsg">
+		<wsdl:part name="parameters" element="FS:ScheduleUpdate"/>
+	</wsdl:message>
+	<wsdl:message name="FlightScheduleUpdateResultMsg">
+		<wsdl:part name="parameters" element="FS:ScheduleUpdateResult"/>
+	</wsdl:message>
+	<!-- WSDL Message Definitions - End -->
+	<wsdl:portType name="FlightSchedules">
+		<wsdl:operation name="ScheduleUpdate">
+			<wsdl:input message="FS:FlightScheduleUpdateMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:portType name="FlightSchedulesCallback">
+		<wsdl:operation name="ScheduleUpdateResponse">
+			<wsdl:input message="FS:FlightScheduleUpdateResultMsg"/>
+		</wsdl:operation>
+	</wsdl:portType>
+</wsdl:definitions>

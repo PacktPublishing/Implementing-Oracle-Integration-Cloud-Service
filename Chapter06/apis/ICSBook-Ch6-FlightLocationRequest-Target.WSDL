@@ -1,0 +1,84 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+   xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+   xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+   xmlns:FSE="http://oracle-integration.cloud/soap/FlightStatusEnquiry"
+   targetNamespace="http://oracle-integration.cloud/soap/FlightStatusEnquiry">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified"
+               targetNamespace="http://oracle-integration.cloud/soap/FlightStatusEnquiry">
+               
+               
+      <xs:element name="FlightLastReportedStatusRequest" >
+        <xs:complexType>
+        <xs:sequence>
+          <xs:element name="faFlightID" type="xs:string"/>
+          <xs:element name="ident" type="xs:string" minOccurs="0" />
+          <xs:element name="prefix" type="xs:string" minOccurs="0" />
+          <xs:element name="suffix" type="xs:string" minOccurs="0" />          
+        </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="FlightLastReportedStatusResponse" >   
+        <xs:complexType>
+        <xs:sequence>
+          <xs:element name="faFlightID" type="xs:string"/>
+          <xs:element name="timestamp" type="xs:int"/>
+          <xs:element name="longitude" type="xs:float"/>
+          <xs:element name="latitude" type="xs:float"/>
+          <xs:element name="updateType" type="xs:string"/>
+          <xs:element name="altitude" type="xs:int"/>
+          <xs:element name="heading" type="xs:int"/>
+        </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+            
+    </xs:schema>
+  </wsdl:types>
+  
+  
+  <!-- WSDL Message Definitions - Start -->
+  <wsdl:message name="FlightStatusEnquiryRequestMsg">
+    <wsdl:part name="parameters" element="FSE:FlightLastReportedStatusRequest"/>
+  </wsdl:message>
+  <wsdl:message name="FlightStatusEnquiryResponseMsg">
+    <wsdl:part name="parameters" element="FSE:FlightLastReportedStatusResponse"/>
+  </wsdl:message>  
+  <!-- WSDL Message Definitions - End -->
+  
+  
+  <wsdl:portType name="FlightStatusEnquiryPT">
+    <wsdl:operation name="GetLastReportedPos">
+      <wsdl:input message="FSE:FlightStatusEnquiryRequestMsg"/>
+      <wsdl:output message="FSE:FlightStatusEnquiryResponseMsg"/>      
+    </wsdl:operation>
+  </wsdl:portType>
+  
+  <wsdl:binding name="FlightStatusEnquiryWSDL" type="FSE:FlightStatusEnquiryPT">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetLastReportedPos">
+      <wsdl:documentation>the soapAction name here needs to be the action name setup in mockable.io</wsdl:documentation>
+      <soap:operation soapAction="FlightStatusEnquiry" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>      
+    </wsdl:operation>
+  </wsdl:binding>
+  
+  <!-- WSDL Service Definition -->
+  <wsdl:service name="FlightStatusEnquiry">
+    <wsdl:documentation>FlightStatusEnquiry Web Services - this represents the API presented by the SOAP Service we want to integrate downstream</wsdl:documentation>
+    <wsdl:port name="FlightStatusEnquiryPT" binding="FSE:FlightStatusEnquiryWSDL">
+      <wsdl:documentation>This needs to correlate to our mockable configuration</wsdl:documentation>
+      <soap:address location="http://demo8825131.mockable.io/FlightStatusEnquiry"/>
+      <!--soap:address location="http://demoxxxxx.mockable.io/FlightStatusEnquiry"/-->
+    </wsdl:port>
+  </wsdl:service> 
+</wsdl:definitions>

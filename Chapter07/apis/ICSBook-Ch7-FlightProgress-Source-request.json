@@ -1,0 +1,15 @@
+{
+    "FlightSitRepType" : {
+          "ID" : "1234",
+          "ident" : "1234",
+          "prefix" : "101",
+          "type" : "POS",
+          "ICAORef" : "BA",
+          "origin" : "LDN",
+          "destination" : "SFO",
+          "timeout" : "1",
+          "timestamp" : "1",          
+          "longitude" : "1",
+          "latitude" : "1",
+          "updateType" : "POS"}
+}

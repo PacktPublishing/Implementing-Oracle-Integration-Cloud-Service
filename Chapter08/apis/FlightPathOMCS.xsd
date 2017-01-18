@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://oracle-integration.cloud/messages/FlightPathUpdate/"
+            targetNamespace="http://oracle-integration.cloud/messages/FlightPathUpdate/" elementFormDefault="qualified">
+  <xsd:element name="FlightPathUpdate">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="pathID" type="xsd:string"/>
+        <xsd:element name="time" type="xsd:string"/>
+        <xsd:element name="longitude" type="xsd:float"/>
+	<xsd:element name="latitude" type="xsd:float"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="ProcessedResult">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="pathID" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>
